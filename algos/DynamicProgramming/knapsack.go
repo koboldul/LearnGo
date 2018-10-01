@@ -10,10 +10,11 @@ import (
 * Classic Knapsack with andd without repetition
  */
 func Knapsack() {
-	//var a = []knapItem{knapItem{2, 8}, knapItem{4, 9}, knapItem{6, 13}}
 	var b = []knapItem{knapItem{15, 15}, knapItem{12, 10}, knapItem{10, 8}, knapItem{5, 1}}
-
 	fmt.Println(solve_no_repeat(b, 22))
+
+	var a = []knapItem{knapItem{2, 8}, knapItem{4, 9}, knapItem{6, 13}}
+	fmt.Println(solve_w_repeat(a, 22))
 }
 
 func solve_no_repeat(a []knapItem, sackLimit int) int {
@@ -56,8 +57,23 @@ func solve_no_repeat(a []knapItem, sackLimit int) int {
 }
 
 func solve_w_repeat(a []knapItem, sackLimit int) int {
+	partial := make([]int, sackLimit+1)
 
-	return 0
+	for w := 0; w <= sackLimit; w++ {
+		for _, v := range a {
+			switch {
+			case w == 0:
+				partial[w] = 0
+			case v.weight > w:
+				partial[w] = partial[w-1]
+			default:
+				partial[w] =
+					utility.Max(partial[w-1], partial[w-v.weight]+v.value)
+			}
+		}
+	}
+
+	return partial[sackLimit]
 }
 
 type knapItem struct {

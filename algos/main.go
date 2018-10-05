@@ -1,9 +1,12 @@
 package main
 
 import (
-	"./DynamicProgramming"
+	//"./DynamicProgramming"
+	"./Arrays"
 )
 
 func main() {
-	dynamic_programming.Knapsack()
+	arrays.SubarraySum()
+	//dynamic_programming.Knapsack()
+
 }
